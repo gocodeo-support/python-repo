@@ -1,0 +1,7 @@
+[run]
+source = shopping_cart
+omit =
+    */gocodeo_tests/*
+    */retriev.py
+    */table.py
+    */__init__.py
