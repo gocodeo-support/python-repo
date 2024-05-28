@@ -1,0 +1,19 @@
+name: generate tests demo
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  generate-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+
+    - name: Install gocodeo
+      run: pip install -i https://test.pypi.org/simple/ gocodeo==0.0.13.7
+
+    
