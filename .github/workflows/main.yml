@@ -41,10 +41,24 @@ jobs:
     - name: Installing Packages
       run: pip install coverage  psutil memory_profiler
 
-    - name: Execute the generated test cases
+    - name: Setting Python Path
       run: |
         export PYTHONPATH="$PWD"
         cd shopping_cart
         python table.py
+    - name: Execute the generated test cases
         coverage run -m unittest discover -s gocodeo_tests
+    - name: Commit and push generated files
+      env:
+        PAT: ${{ secrets.PAT }}
+      run: |
+        git config --local user.email "soumendraroman@gmail.com"
+        git config --local user.name "Soumendraprasad"
+        git checkout feature/demo
+        git pull origin feature/demo
+        git add gocodeo_tests/ shopping_cart/
+        git commit -m "Add newly generated files"
+        git push origin HEAD:${{ github.event.pull_request.head.ref }}
+
+    - name: Coverage Report
         coverage report
