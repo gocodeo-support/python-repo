@@ -1,4 +1,4 @@
-name: generate tests demo
+name:  generate tests 
 
 on:
   pull_request:
@@ -12,30 +12,30 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set path variable
+    - name: Install GoCodeo CLI
       id: set-path
       run: |
        echo "::set-output name=path::shopping_cart"
        pip install gocodeo==0.0.0.1 coverage  psutil memory_profiler
 
-    - name: Generating test cases
+    - name: Generate test cases
       run: |
         echo "${{ secrets.secret }}" | gocodeo-advanced generate ${{ steps.set-path.outputs.path }}
 
-    - name: Commit and push changes
+    - name: Commit changes to PR
       env:
         PAT: ${{ secrets.PAT }}
       run: |
-        git fetch origin feature/demo:feature/demo && git checkout feature/demo
+        git fetch origin feature/cli:feature/cli && git checkout feature/cli
         git config --local user.email "soumendraroman@gmail.com"
         git config --local user.name "Soumendraprasad"
-        git checkout feature/demo
-        git pull origin feature/demo
+        git checkout feature/cli
+        git pull origin feature/cli
         git add ${{ steps.set-path.outputs.path }}
         git commit -m "Add generated test cases"
         git push origin HEAD:${{ github.event.pull_request.head.ref }}
 
-    - name: Executing the generated test cases
+    - name: Execute the generated test cases
       run: |
         export PYTHONPATH="$PWD"
         cd shopping_cart
