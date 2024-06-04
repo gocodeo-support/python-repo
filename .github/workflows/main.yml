@@ -26,11 +26,11 @@ jobs:
       env:
         PAT: ${{ secrets.PAT }}
       run: |
-        git fetch origin feature/cli:feature/cli && git checkout feature/cli
+        git fetch origin feature/demo:feature/demo && git checkout feature/demo
         git config --local user.email "soumendraroman@gmail.com"
         git config --local user.name "Soumendraprasad"
-        git checkout feature/cli
-        git pull origin feature/cli
+        git checkout feature/demo
+        git pull origin feature/demo
         git add ${{ steps.set-path.outputs.path }}
         git commit -m "Add generated test cases"
         git push origin HEAD:${{ github.event.pull_request.head.ref }}
