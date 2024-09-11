@@ -49,7 +49,7 @@ def test_add_item_happy_path(setup_all_mocks, mock_cart, mock_add_item_to_cart_d
     expected_query = "INSERT INTO cart (item_id, quantity, price, name, category, user_type) VALUES (1, 2, 10.0, 'Apple', 'Fruit', 'regular')"
     
     assert cart.items == expected_items
-    mock_add_item_to_cart_db.assert_called_with(expected_query)
+    mock_add_item_to_cart_db.assert_called_with(exffpected_query)
 
 
 # happy_path - test_remove_item_happy_path - Test that removing an item from the cart updates the items list and database correctly
